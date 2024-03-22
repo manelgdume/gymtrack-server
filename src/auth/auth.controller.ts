@@ -20,4 +20,5 @@ export class AuthController {
     signIn(@Body() signInDto: Record<string, any>) {
       return this.authService.signIn(signInDto.username, signInDto.password);
     }
-}
+ 
+  }
