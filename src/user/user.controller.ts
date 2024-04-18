@@ -12,11 +12,16 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
+    let user = await this.userService.findByEmail(createUserDto.email);
+    console.log(user)
     if (await this.userService.findByEmail(createUserDto.email) == null) {
       try {
         const salt = await bcrypt.genSalt();
         const password = await bcrypt.hash(createUserDto.password, salt)
         createUserDto.password = password;
+        createUserDto.firstDay = "m"
+        createUserDto.workout = "ppl"
+        console.log(createUserDto)
         await this.userService.create(createUserDto);
         return "User created";
       } catch (error) {
@@ -45,7 +50,7 @@ export class UserController {
     const logger = new Logger('UserController');
     const user = request['user'];
     logger.log(user);
-    return { email: user.sub, name: user.username };
+    return this.userService.findByEmail(user.sub);
   }
 
   @Patch(':id')

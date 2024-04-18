@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User >) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
@@ -19,10 +19,10 @@ export class UserService {
   }
 
   async findOne(id: number) {
-    return this.userModel.findOne({_id : id});
+    return this.userModel.findOne({ _id: id });
   }
-  async findByEmail(userEmail : string): Promise<User | null>{
-    return this.userModel.findOne({email : userEmail}).exec();
+  async findByEmail(userEmail: string): Promise<User | null> {
+    return this.userModel.findOne({ email: userEmail }).exec();
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

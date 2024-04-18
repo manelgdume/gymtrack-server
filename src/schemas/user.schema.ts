@@ -13,6 +13,12 @@ export class User {
 
   @Prop()
   password: string;
+
+  @Prop()
+  workout: string;
+
+  @Prop()
+  firstDay: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
