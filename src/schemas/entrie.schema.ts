@@ -16,6 +16,8 @@ export class Entrie {
     date: Date
     @Prop()
     sets: Set[];
+    @Prop()
+    email: string;
 }
 
 export const EntrieSchema = SchemaFactory.createForClass(Entrie);

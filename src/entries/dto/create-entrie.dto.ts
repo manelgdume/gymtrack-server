@@ -1,7 +1,8 @@
 export class CreateEntrieDto {
-    name: string;
+    name: string
     sets: Set[]
     date: Date
+    email: string
 }
 interface Set {
     weigth: Number[];

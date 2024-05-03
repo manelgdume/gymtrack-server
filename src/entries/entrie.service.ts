@@ -10,15 +10,25 @@ export class EntrieService {
 
   async create(createEntrieDto: CreateEntrieDto): Promise<Entrie> {
     const logger = new Logger('EntrieService');
-    logger.log(createEntrieDto)
     const createdEntrie = new this.entrieModel(createEntrieDto);
     return createdEntrie.save();
   }
 
-  async findOneByName(name: string): Promise<Entrie | null> {
+  async findOneByDate(date: string, email: string): Promise<Entrie | null> {
     const logger = new Logger('EntrieService');
-    const split = await this.entrieModel.findOne({ name }).select(`days workouts`).exec();
-    logger.log(split)
-    return split 
-  }  
+    try {
+      logger.log(new Date(date))
+      logger.log(new Date(new Date(date).setDate(new Date(date).getDate() + 1)))
+
+      const split = await this.entrieModel.findOne({
+        email,
+        date: { $gte: new Date(date).setHours(0, 0, 0, 0) , $lte: new Date(new Date(date).setDate(new Date(date).getDate() + 1)).setHours(0, 0, 0, 0) },
+      }).exec();
+      logger.log(split);
+      return split;
+    } catch (error) {
+      logger.error(error);
+      return null;
+    }
+  } 
 }
