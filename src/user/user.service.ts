@@ -24,6 +24,12 @@ export class UserService {
   async findByEmail(userEmail: string): Promise<User | null> {
     return this.userModel.findOne({ email: userEmail }).exec();
   }
+  async updateSplit(userEmail: string,workout: string): Promise<User | null> {
+    return this.userModel.findOneAndUpdate(
+      { email: userEmail }, 
+      { $set: { workout: workout } }
+    ).exec();
+  }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;

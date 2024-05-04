@@ -34,9 +34,9 @@ export class EntrieController {
   async getByDate(@Param('date') date: string, @Req() req) {
     const logger = new Logger('SplitController');
     logger.log(req.headers.authorization.split(' ')[1])
-    const token = req.headers.authorization.split(' ')[1]; // Obtener el token JWT
-    const decodedToken = this.jwtService.decode(token); // Decodificar el token JWT
-    const userEmail = decodedToken.sub; // Extraer el email del token decodificado
+    const token = req.headers.authorization.split(' ')[1];  
+    const decodedToken = this.jwtService.decode(token); 
+    const userEmail = decodedToken.sub;  
     try {
       return this.entrieService.findOneByDate(date , userEmail);
     } catch (error) {
